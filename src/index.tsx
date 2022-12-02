@@ -26,6 +26,14 @@ subscribe(() => {
     rndValue = Math.ceil(Math.random() * 10)
 })
 
+const {incA, decA, rndA} = bindActionCreators(actions, dispatch)
+
+ReactDOM.render(
+        <App inc={incA} dec={decA} rnd={() => rndA(rndValue)} counter={0}/>,
+    document.getElementById('root')
+);
+
+
 // first generation actions
 // const inc = () => dispatch(incA()) 
 // const dec = () => dispatch(decA()) 
@@ -49,10 +57,4 @@ subscribe(() => {
 // },dispatch)
 
 // каждый АС после этой строчки становится обернутым dispatch
-const {incA, decA, rndA} = bindActionCreators(actions, dispatch)
-
-
-ReactDOM.render(
-        <App inc={incA} dec={decA} rnd={() => rndA(rndValue)}/>,
-    document.getElementById('root')
-);
+// const {incA, decA, rndA} = bindActionCreators(actions, dispatch)
