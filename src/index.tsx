@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import App from './App';
+import App from './components/App';
 import ReactDOM from "react-dom";
 import { createStore, bindActionCreators } from 'redux';
 
@@ -15,15 +15,15 @@ let rndValue = Math.ceil(Math.random() * 10)
 
 subscribe(() => {
     document.title = `store ${getState().val}`
-    // update()
-    console.log(getState()) 
-    console.log('render')
+
     rndValue = Math.ceil(Math.random() * 10)
 
     ReactDOM.render(
         <App inc={incA} dec={decA} rnd={() => rndA(rndValue)} counter={getState().val}/>,
     document.getElementById('root')
-);
+    );
+    console.log(getState()) 
+    console.log('render')
 })
 
 
