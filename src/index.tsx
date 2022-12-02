@@ -9,27 +9,26 @@ import * as actions from './actions'
 
 const store = createStore(reducer);
 const {getState, dispatch, subscribe} = store
+const {incA, decA, rndA} = bindActionCreators(actions, dispatch)
 
 let rndValue = Math.ceil(Math.random() * 10)
 
-const update = () => {
-    let data:string = getState().val.toString()
-    const counterDiv = document.getElementById('counter')
-    counterDiv!.textContent = data
-}
-
 subscribe(() => {
     document.title = `store ${getState().val}`
-    update()
+    // update()
     console.log(getState()) 
     console.log('render')
     rndValue = Math.ceil(Math.random() * 10)
+
+    ReactDOM.render(
+        <App inc={incA} dec={decA} rnd={() => rndA(rndValue)} counter={getState().val}/>,
+    document.getElementById('root')
+);
 })
 
-const {incA, decA, rndA} = bindActionCreators(actions, dispatch)
 
 ReactDOM.render(
-        <App inc={incA} dec={decA} rnd={() => rndA(rndValue)} counter={0}/>,
+        <App inc={incA} dec={decA} rnd={() => rndA(rndValue)} counter={getState().val}/>,
     document.getElementById('root')
 );
 
