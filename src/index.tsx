@@ -1,10 +1,11 @@
 import React from 'react';
-import './index.css';
-import App from './components/App';
 import ReactDOM from "react-dom";
 import { createStore, bindActionCreators } from 'redux';
+import { Provider } from 'react-redux';
 
 import reducer from './reducer';
+import './index.css';
+import App from './components/App';
 import * as actions from './actions'
 
 const store = createStore(reducer);
@@ -13,24 +14,50 @@ const {incA, decA, rndA} = bindActionCreators(actions, dispatch)
 
 let rndValue = Math.ceil(Math.random() * 10)
 
-subscribe(() => {
-    document.title = `store ${getState().val}`
+const reactRender = () => {
+    ReactDOM.render(
+        <Provider store={store}>
+            <App inc={incA} dec={decA} rnd={() => rndA(rndValue)} counter={getState().val}/>
+        </Provider>,
+    document.getElementById('root')
+);
+}
 
+subscribe(() => {    
     rndValue = Math.ceil(Math.random() * 10)
 
-    ReactDOM.render(
-        <App inc={incA} dec={decA} rnd={() => rndA(rndValue)} counter={getState().val}/>,
-    document.getElementById('root')
-    );
+    document.title = `store ${getState().val}`
+    reactRender()
+    
     console.log(getState()) 
     console.log('render')
 })
 
+reactRender()
 
-ReactDOM.render(
-        <App inc={incA} dec={decA} rnd={() => rndA(rndValue)} counter={getState().val}/>,
-    document.getElementById('root')
-);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // first generation actions
