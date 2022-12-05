@@ -1,4 +1,8 @@
-const initialState = {val: 0};
+export interface ICounterState {
+    val: number
+}
+
+const initialState:ICounterState = {val: 0};
 
 const reducer = (state = initialState, action:any) => {
     switch (action.type) {
@@ -15,7 +19,7 @@ const reducer = (state = initialState, action:any) => {
         case 'RND':
             return {
                 ...state,
-                val: action.valueR
+                val: state.val = action.valueR
             }
         default:
             return state
