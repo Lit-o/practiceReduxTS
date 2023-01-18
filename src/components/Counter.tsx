@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { ICounterState } from "../reducer";
 import * as actions from "../actions";
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
 
 export interface propsCounter {
     incA: () => void;
@@ -26,9 +26,11 @@ const mstp = (state: ICounterState) => {
 //     }
 // }
 
-const mdtp = (dispatch:any) => {
-    return bindActionCreators(actions, dispatch)
-}
+// const mdtp = (dispatch:any) => {
+//     return bindActionCreators(actions, dispatch)
+// }
+// решили передать не mdtp a просто obj actions, потому что можем! 
+// (connect сат обернет сущности actions в dispatch и без bindActionCreators)
 
 
 function Counter({incA, decA, rndA, counter}:propsCounter) {
@@ -54,4 +56,4 @@ function Counter({incA, decA, rndA, counter}:propsCounter) {
 }
 // export default Counter
 
-export default connect(mstp, mdtp)(Counter);
+export default connect(mstp, actions)(Counter);
